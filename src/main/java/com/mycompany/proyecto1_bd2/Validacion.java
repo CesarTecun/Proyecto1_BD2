@@ -8,16 +8,16 @@ public class Validacion {
         boolean valido = false;
 
         try (Connection conn = Conexion.getConnection()) {
-            CallableStatement cs = conn.prepareCall("{call VALIDAR_PIN(?, ?, ?)}");
+            CallableStatement cs = conn.prepareCall("{call BANCO.VALIDAR_PIN(?, ?, ?)}"); // ✅ Agregamos schema BANCO
             cs.setString(1, numeroTarjeta);
             cs.setString(2, pin);
             cs.registerOutParameter(3, Types.VARCHAR);
             cs.execute();
 
             String resultado = cs.getString(3);
-            System.out.println("🛡️ " + resultado);
+            System.out.println("🛡️ Resultado: " + resultado);
 
-            if (resultado.contains("válido")) {
+            if (resultado.equalsIgnoreCase("VALIDO")) {
                 valido = true;
             }
 
@@ -31,7 +31,7 @@ public class Validacion {
 
     public static int obtenerTarjetaId(String numeroTarjeta) {
         try (Connection conn = Conexion.getConnection()) {
-            PreparedStatement ps = conn.prepareStatement("SELECT tarjeta_id FROM TARJETA WHERE numero = ?");
+            PreparedStatement ps = conn.prepareStatement("SELECT tarjeta_id FROM BANCO.TARJETA WHERE numero = ?"); // ✅ Referencia explícita a BANCO
             ps.setString(1, numeroTarjeta);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
