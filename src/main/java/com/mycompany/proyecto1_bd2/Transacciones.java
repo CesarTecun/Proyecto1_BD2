@@ -1,3 +1,4 @@
+package com.mycompany.proyecto1_bd2;
 import com.mycompany.proyecto1_bd2.Conexion;
 import java.sql.*;
 
