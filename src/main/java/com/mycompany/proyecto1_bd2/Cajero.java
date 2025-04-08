@@ -5,56 +5,48 @@ import java.util.Scanner;
 public class Cajero {
 
     public static void ejecutar() {
-        Scanner sc = new Scanner(System.in);
-
+        Scanner scanner = new Scanner(System.in);
         System.out.println("💳 Bienvenido al Cajero Automático");
         System.out.print("Ingrese el número de su tarjeta: ");
-        String numeroTarjeta = sc.nextLine();
+        String numeroTarjeta = scanner.nextLine();
 
         System.out.print("Ingrese su PIN: ");
-        String pin = sc.nextLine();
+        String pin = scanner.nextLine();
 
-        // Validar PIN
-        if (!Validacion.validarPin(numeroTarjeta, pin)) {
-            System.out.println("⛔ PIN inválido. Acceso denegado.");
-            return;
-        }
+        if (Validacion.validarPin(numeroTarjeta, pin)) {
+            int tarjetaId = Validacion.obtenerTarjetaId(numeroTarjeta);
+            int atmId = 1; // puedes cambiar esto si manejas múltiples ATM
 
-        int tarjetaId = Validacion.obtenerTarjetaId(numeroTarjeta);
-        if (tarjetaId == -1) {
-            System.out.println("❌ No se encontró la tarjeta.");
-            return;
-        }
+            while (true) {
+                System.out.println("\nSeleccione una opción:");
+                System.out.println("1. Realizar extracción");
+                System.out.println("2. Realizar transferencia");
+                System.out.println("3. Salir");
+                System.out.print("Opción: ");
+                int opcion = scanner.nextInt();
 
-        int atmId = 1; // puedes cambiar o pedirlo por input
-
-        while (true) {
-            System.out.println("\n📋 MENÚ CAJERO");
-            System.out.println("1. Realizar Extracción");
-            System.out.println("2. Realizar Transferencia");
-            System.out.println("3. Salir");
-            System.out.print("Seleccione una opción: ");
-            int opcion = sc.nextInt();
-
-            switch (opcion) {
-                case 1:
-                    System.out.print("Ingrese monto a extraer: ");
-                    double montoExtraccion = sc.nextDouble();
-                    Transacciones.realizarExtraccion(tarjetaId, montoExtraccion, atmId);
-                    break;
-                case 2:
-                    System.out.print("Ingrese cuenta destino: ");
-                    int cuentaDestino = sc.nextInt();
-                    System.out.print("Ingrese monto a transferir: ");
-                    double montoTransferencia = sc.nextDouble();
-                    Transacciones.realizarTransferencia(tarjetaId, cuentaDestino, montoTransferencia, atmId);
-                    break;
-                case 3:
-                    System.out.println("👋 Gracias por usar el cajero.");
-                    return;
-                default:
-                    System.out.println("❗ Opción no válida.");
+                switch (opcion) {
+                    case 1:
+                        System.out.print("Ingrese monto a extraer: ");
+                        double montoExtraccion = scanner.nextDouble();
+                        Transacciones.realizarExtraccion(tarjetaId, montoExtraccion, atmId);
+                        break;
+                    case 2:
+                        System.out.print("Ingrese número de cuenta destino: ");
+                        int cuentaDestino = scanner.nextInt();
+                        System.out.print("Ingrese monto a transferir: ");
+                        double montoTransferencia = scanner.nextDouble();
+                        Transacciones.realizarTransferencia(tarjetaId, cuentaDestino, montoTransferencia, atmId);
+                        break;
+                    case 3:
+                        System.out.println("👋 Gracias por usar el cajero.");
+                        return;
+                    default:
+                        System.out.println("❗ Opción no válida.");
+                }
             }
+        } else {
+            System.out.println("🚫 PIN inválido. Acceso denegado.");
         }
     }
 }
