@@ -15,7 +15,6 @@ public class Validacion {
             cs.execute();
 
             String resultado = cs.getString(3);
-            System.out.println("🛡️ Resultado: " + resultado);
 
             if (resultado.equalsIgnoreCase("VALIDO")) {
                 valido = true;
@@ -43,4 +42,22 @@ public class Validacion {
         }
         return -1;
     }
+    
+         //VALIDACION PARA LA TARJETA O PIN
+     public static boolean existeTarjeta(String numeroTarjeta) {
+    try (Connection conn = Conexion.getConnection()) {
+        String query = "SELECT COUNT(*) FROM banco.TARJETA WHERE numero = ? AND estado = 'ACTIVA'";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setString(1, numeroTarjeta);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (SQLException e) {
+        System.out.println("⚠️ Error al verificar tarjeta:");
+        e.printStackTrace();
+    }
+    return false;
+}
+     
 }

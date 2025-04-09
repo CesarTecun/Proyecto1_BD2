@@ -1,18 +1,27 @@
 package com.mycompany.proyecto1_bd2;
+
 import java.sql.*;
 
 public class Transacciones {
 
     public static void realizarExtraccion(int tarjetaId, double monto, int atmId) {
         try (Connection conn = Conexion.getConnection()) {
-           CallableStatement cs = conn.prepareCall("{call banco.realizar_extraccion(?, ?, ?, ?)}");
+            CallableStatement cs = conn.prepareCall("{call banco.realizar_extraccion(?, ?, ?, ?)}");
             cs.setInt(1, tarjetaId);
             cs.setDouble(2, monto);
             cs.setInt(3, atmId);
             cs.registerOutParameter(4, Types.VARCHAR);
             cs.execute();
-            System.out.println(cs.getString(4));
+
+            String resultado = cs.getString(4);
+            if (resultado != null && resultado.toUpperCase().contains("ERROR")) {
+                System.out.println("❌ Transacción fallida: " + resultado);
+            } else {
+                System.out.println("✅ " + resultado);
+            }
+
         } catch (SQLException e) {
+            System.out.println("❌ Error al realizar extracción:");
             e.printStackTrace();
         }
     }
@@ -26,8 +35,16 @@ public class Transacciones {
             cs.setInt(4, atmId);
             cs.registerOutParameter(5, Types.VARCHAR);
             cs.execute();
-            System.out.println(cs.getString(5));
+
+            String resultado = cs.getString(5);
+            if (resultado != null && resultado.toUpperCase().contains("ERROR")) {
+                System.out.println("❌ Transacción fallida: " + resultado);
+            } else {
+                System.out.println("✅ " + resultado);
+            }
+
         } catch (SQLException e) {
+            System.out.println("❌ Error al realizar transferencia:");
             e.printStackTrace();
         }
     }
