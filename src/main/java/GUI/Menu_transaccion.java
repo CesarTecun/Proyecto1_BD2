@@ -21,6 +21,7 @@ public class Menu_transaccion extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jbutton_transferencia = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton_ATRAS = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -41,6 +42,14 @@ public class Menu_transaccion extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 220, 40));
+
+        jButton_ATRAS.setText("ATRAS");
+        jButton_ATRAS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ATRASActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_ATRAS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -74,9 +83,16 @@ public class Menu_transaccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton_ATRASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ATRASActionPerformed
+        Menu_secundario ver = new Menu_secundario(numeroTarjeta, atmId);
+        ver.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton_ATRASActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_ATRAS;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbutton_transferencia;
     // End of variables declaration//GEN-END:variables

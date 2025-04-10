@@ -37,6 +37,11 @@ public class Menu_secundario extends javax.swing.JFrame {
         jPanel1.add(Button_Transaccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 150, 40));
 
         Button_Prestamo.setText("PRESTAMO");
+        Button_Prestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_PrestamoActionPerformed(evt);
+            }
+        });
         jPanel1.add(Button_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, 150, 40));
 
         Jlabel_nombreUser.setBackground(new java.awt.Color(204, 204, 204));
@@ -73,6 +78,12 @@ public class Menu_secundario extends javax.swing.JFrame {
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_Button_TransaccionActionPerformed
+
+    private void Button_PrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_PrestamoActionPerformed
+        Menu_Pago ver = new Menu_Pago(numeroTarjeta, atmId); // usa el atmId real
+        ver.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Button_PrestamoActionPerformed
 
     private void cargarDatosUsuario() {
         UsuarioInfo info = DatosUsuario.obtenerInfoDesdeTarjeta(numeroTarjeta);
