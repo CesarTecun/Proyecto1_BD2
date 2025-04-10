@@ -60,4 +60,26 @@ public class Validacion {
     return false;
 }
      
+     public static String validarAcceso(String numeroTarjeta, String pin) {
+    if (!numeroTarjeta.matches("\\d{16}")) {
+        return "ERROR_TARJETA_FORMATO";
+    }
+
+    if (!existeTarjeta(numeroTarjeta)) {
+        return "ERROR_TARJETA_NO_EXISTE";
+    }
+
+    if (!pin.matches("\\d{4}")) {
+        return "ERROR_PIN_FORMATO";
+    }
+
+    if (!validarPin(numeroTarjeta, pin)) {
+        return "ERROR_PIN_INCORRECTO";
+    }
+
+    return "ACCESO_CONCEDIDO";
+}
+
+     
+     
 }

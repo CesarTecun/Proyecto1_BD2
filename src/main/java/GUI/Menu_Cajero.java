@@ -65,30 +65,26 @@ public class Menu_Cajero extends javax.swing.JPanel {
     }//GEN-LAST:event_Validar_tarjetaActionPerformed
 
     
-    private void validarDatos() {
+private void validarDatos() {
     String numeroTarjeta = Jtext_Tarjeta.getText().trim();
     String pin = new String(Jpassword_PIN.getPassword()).trim();
-
-    // Validación número de tarjeta
-    if (!numeroTarjeta.matches("\\d{16}")) {
+    if (!numeroTarjeta.matches("\\d{16}")) {    // Validar formato del número de tarjeta
+        Jlabel_tarjeta_validada.setText("❌ Formato inválido");
         JOptionPane.showMessageDialog(this, "El número de tarjeta debe tener 16 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-    if (!Validacion.existeTarjeta(numeroTarjeta)) {
+    if (!Validacion.existeTarjeta(numeroTarjeta)) {    // Validar si la tarjeta existe y está activa
         Jlabel_tarjeta_validada.setText("❌ Tarjeta no válida o inactiva");
         return;
     } else {
         Jlabel_tarjeta_validada.setText("✅ Tarjeta válida");
     }
-
-    // Validación de PIN
-    if (!pin.matches("\\d{4}")) {
-        JOptionPane.showMessageDialog(this, "El PIN debe tener 4 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+    if (!pin.matches("\\d{4}")) {    // Validar formato del PIN
+        Jlabel_PIN_validado.setText("❌");
+        JOptionPane.showMessageDialog(this, "El PIN debe tener exactamente 4 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
-    if (!Validacion.validarPin(numeroTarjeta, pin)) {
+    if (!Validacion.validarPin(numeroTarjeta, pin)) {    // Validar PIN en la base de datos
         Jlabel_PIN_validado.setText("❌ PIN incorrecto");
         return;
     } else {
@@ -99,7 +95,6 @@ public class Menu_Cajero extends javax.swing.JPanel {
         SwingUtilities.getWindowAncestor(this).setVisible(false);
     }
 }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Fondo_Cajero;
     private javax.swing.JLabel Jlabel_PIN_validado;
