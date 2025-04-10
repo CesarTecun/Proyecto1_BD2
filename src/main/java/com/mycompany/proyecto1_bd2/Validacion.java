@@ -59,7 +59,7 @@ public class Validacion {
     }
     return false;
 }
-     
+     //Validamos el acceso para el cajero
      public static String validarAcceso(String numeroTarjeta, String pin) {
     if (!numeroTarjeta.matches("\\d{16}")) {
         return "ERROR_TARJETA_FORMATO";
@@ -80,6 +80,50 @@ public class Validacion {
     return "ACCESO_CONCEDIDO";
 }
 
-     
-     
+    public static boolean realizarTransferencia(int tarjetaId, int cuentaDestino, double monto, int atmId) {
+    boolean exito = false;
+    try (Connection conn = Conexion.getConnection()) {
+        CallableStatement cs = conn.prepareCall("{call BANCO.REALIZAR_TRANSFERENCIA(?, ?, ?, ?, ?)}");
+        cs.setInt(1, tarjetaId);
+        cs.setInt(2, cuentaDestino);
+        cs.setDouble(3, monto);
+        cs.setInt(4, atmId);
+        cs.registerOutParameter(5, Types.VARCHAR); // Resultado: 'EXITO' o 'ERROR'
+
+        cs.execute();
+        String resultado = cs.getString(5);
+
+        if (resultado != null && resultado.toUpperCase().contains("TRANSFERENCIA REALIZADA")) {
+            exito = true;
+        }
+    } catch (SQLException e) {
+        System.out.println("❌ Error al realizar transferencia:");
+        e.printStackTrace();
+    }
+    return exito;
+}    
+    
+    public static String realizarExtraccion(int tarjetaId, double monto, int atmId) {
+    String resultado = null;
+
+    try (Connection conn = Conexion.getConnection()) {
+        CallableStatement cs = conn.prepareCall("{call BANCO.REALIZAR_EXTRACCION(?, ?, ?, ?)}");
+        cs.setInt(1, tarjetaId);
+        cs.setDouble(2, monto);
+        cs.setInt(3, atmId);
+        cs.registerOutParameter(4, Types.VARCHAR);
+
+        cs.execute();
+        resultado = cs.getString(4);
+
+        System.out.println("🧾 Resultado extracción: " + resultado);
+    } catch (SQLException e) {
+        System.out.println("❌ Error al realizar extracción:");
+        e.printStackTrace();
+        resultado = "ERROR: " + e.getMessage();
+    }
+
+    return resultado;
+}
+
 }

@@ -1,5 +1,4 @@
 package GUI;
-
 import com.mycompany.proyecto1_bd2.Validacion;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -24,12 +23,21 @@ public class Menu_Cajero extends javax.swing.JPanel {
         Jtext_Tarjeta1 = new javax.swing.JTextField();
         Jlabel_PIN_validado = new javax.swing.JLabel();
         Jpassword_PIN = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
 
+        Fondo_Cajero.setBackground(new java.awt.Color(255, 255, 255));
+        Fondo_Cajero.setForeground(new java.awt.Color(255, 255, 255));
         Fondo_Cajero.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         jLabel1.setText("CAJERO AUTOMATICO");
         Fondo_Cajero.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 260, 50));
+
+        Jtext_Tarjeta.setBackground(new java.awt.Color(255, 255, 255));
+        Jtext_Tarjeta.setBorder(null);
         Fondo_Cajero.add(Jtext_Tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 270, 30));
 
         n_tarjeta.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -42,11 +50,18 @@ public class Menu_Cajero extends javax.swing.JPanel {
                 Validar_tarjetaActionPerformed(evt);
             }
         });
-        Fondo_Cajero.add(Validar_tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 100, 40));
+        Fondo_Cajero.add(Validar_tarjeta, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 110, 40));
         Fondo_Cajero.add(Jlabel_tarjeta_validada, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 270, 20));
         Fondo_Cajero.add(Jtext_Tarjeta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 270, 30));
         Fondo_Cajero.add(Jlabel_PIN_validado, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 270, 20));
-        Fondo_Cajero.add(Jpassword_PIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 242, 270, 30));
+
+        Jpassword_PIN.setBackground(new java.awt.Color(255, 255, 255));
+        Jpassword_PIN.setBorder(null);
+        Fondo_Cajero.add(Jpassword_PIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 270, 30));
+        Fondo_Cajero.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, 270, -1));
+        Fondo_Cajero.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, -1, -1));
+        Fondo_Cajero.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, -1, -1));
+        Fondo_Cajero.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 270, 10));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,7 +105,8 @@ private void validarDatos() {
     } else {
         Jlabel_PIN_validado.setText("✅ PIN válido");
         JOptionPane.showMessageDialog(this, "Acceso concedido. Bienvenido.");
-        Menu_secundario ver = new Menu_secundario();
+        int atmId = 1;
+        Menu_secundario ver = new Menu_secundario(numeroTarjeta, atmId);
         ver.setVisible(true);
         SwingUtilities.getWindowAncestor(this).setVisible(false);
     }
@@ -104,6 +120,10 @@ private void validarDatos() {
     private javax.swing.JTextField Jtext_Tarjeta1;
     private javax.swing.JButton Validar_tarjeta;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel n_tarjeta;
     // End of variables declaration//GEN-END:variables
 }
