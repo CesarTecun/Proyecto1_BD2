@@ -80,7 +80,7 @@ public class Menu_Pago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ATRAS1ActionPerformed
 
     private void jButton_Solicitar_PrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Solicitar_PrestamoActionPerformed
-        Solicitar_Prestamo ver = new Solicitar_Prestamo();
+        Solicitar_Prestamo ver = new Solicitar_Prestamo(numeroTarjeta,atmId);
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton_Solicitar_PrestamoActionPerformed

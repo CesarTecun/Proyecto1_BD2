@@ -4,10 +4,20 @@ import com.mycompany.proyecto1_bd2.GestorPrestamos;
 
 
 public class Solicitar_Prestamo extends javax.swing.JFrame {
+    private String numeroTarjeta;
+    private int atmId;
+    private javax.swing.JComboBox<String> jComboBox_Tipo_Tasa;
 
-    public Solicitar_Prestamo() {
+    public Solicitar_Prestamo(String numeroTarjeta, int atmId) {
         initComponents();
         setLocationRelativeTo(null);
+        
+        jComboBox_Tipo_Tasa = new javax.swing.JComboBox<>();
+        jComboBox_Tipo_Tasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "Hipotecario", "Consumo", "Educativo", "Empresarial"
+        }));
+        jPanel1.add(jComboBox_Tipo_Tasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 270, 30));
+
         
         Jbutton_Prestamo.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -29,8 +39,6 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
-        Jtext_Prestamo = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         Jtext_Solicitado = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
@@ -40,6 +48,7 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
         Jtext_Ofrecida = new javax.swing.JTextField();
         jSeparator8 = new javax.swing.JSeparator();
         Jbutton_Prestamo = new javax.swing.JButton();
+        jButton_ATRAS = new javax.swing.JButton();
 
         Jtext_Monto.setBackground(new java.awt.Color(255, 255, 255));
         Jtext_Monto.setBorder(null);
@@ -63,11 +72,6 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
 
         jLabel6.setText("Destino del préstamo");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 140, 30));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 270, 10));
-
-        Jtext_Prestamo.setBackground(new java.awt.Color(255, 255, 255));
-        Jtext_Prestamo.setBorder(null);
-        jPanel1.add(Jtext_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 270, 30));
         jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 270, 10));
 
         Jtext_Solicitado.setBackground(new java.awt.Color(255, 255, 255));
@@ -92,6 +96,14 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
         Jbutton_Prestamo.setText("SOLICITAR PRESTAMO");
         jPanel1.add(Jbutton_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 170, 50));
 
+        jButton_ATRAS.setText("ATRAS");
+        jButton_ATRAS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ATRASActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_ATRAS, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -106,9 +118,15 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton_ATRASActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ATRASActionPerformed
+        Menu_Pago ver = new Menu_Pago(numeroTarjeta,atmId);
+        ver.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton_ATRASActionPerformed
+
 private void solicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {
     try {
-        String tipoPrestamo = Jtext_Prestamo.getText();
+       String tipoPrestamo = jComboBox_Tipo_Tasa.getSelectedItem().toString();  
         double montoSolicitado = Double.parseDouble(Jtext_Solicitado.getText());
         int plazo = Integer.parseInt(Jtext_Meses.getText());
         String destino = Jtext_Destino_Prestamo.getText();
@@ -147,8 +165,8 @@ private void solicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JTextField Jtext_Meses;
     private javax.swing.JTextField Jtext_Monto;
     private javax.swing.JTextField Jtext_Ofrecida;
-    private javax.swing.JTextField Jtext_Prestamo;
     private javax.swing.JTextField Jtext_Solicitado;
+    private javax.swing.JButton jButton_ATRAS;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -156,7 +174,6 @@ private void solicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
