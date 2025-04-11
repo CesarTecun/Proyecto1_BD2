@@ -5,10 +5,11 @@ package GUI;
 public class Menu_Pago extends javax.swing.JFrame {
     private int atmId;
     private String numeroTarjeta;
- 
+    private int tarjetaId;
     public Menu_Pago(String numeroTarjeta, int atmId) {
         initComponents();
         setLocationRelativeTo(null);
+        this.tarjetaId = com.mycompany.proyecto1_bd2.Validacion.obtenerTarjetaId(numeroTarjeta);
     }
 
  
@@ -51,6 +52,11 @@ public class Menu_Pago extends javax.swing.JFrame {
         jPanel1.add(jButton_Solicitar_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 170, 50));
 
         jButton_Pagar_Prestamo.setText("Pagar Prestamo");
+        jButton_Pagar_Prestamo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_Pagar_PrestamoActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton_Pagar_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 190, 170, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -84,6 +90,12 @@ public class Menu_Pago extends javax.swing.JFrame {
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton_Solicitar_PrestamoActionPerformed
+
+    private void jButton_Pagar_PrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Pagar_PrestamoActionPerformed
+        Menu_Pagar_Prestamo ver = new Menu_Pagar_Prestamo(tarjetaId);
+        ver.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton_Pagar_PrestamoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
