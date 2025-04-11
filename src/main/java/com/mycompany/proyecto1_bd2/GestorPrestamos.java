@@ -108,4 +108,23 @@ public class GestorPrestamos {
       return pagos;
   }
 
+    
+    public static int obtenerClienteIdDesdeTarjeta(int tarjetaId) {
+        int clienteId = -1;
+        try (Connection conn = Conexion.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(
+                "SELECT cliente_id FROM BANCO.CLIENTE_TARJETA WHERE tarjeta_id = ?"
+            );
+            ps.setInt(1, tarjetaId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                clienteId = rs.getInt("cliente_id");
+            }
+        } catch (SQLException e) {
+            System.out.println("⚠️ Error al obtener cliente_id: " + e.getMessage());
+        }
+        return clienteId;
+    }
+
+
 }

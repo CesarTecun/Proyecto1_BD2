@@ -10,6 +10,7 @@ public class Menu_Pago extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         this.tarjetaId = com.mycompany.proyecto1_bd2.Validacion.obtenerTarjetaId(numeroTarjeta);
+        this.numeroTarjeta = numeroTarjeta;
     }
 
  
@@ -80,19 +81,19 @@ public class Menu_Pago extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ATRASActionPerformed
 
     private void jButton_ATRAS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ATRAS1ActionPerformed
-        Menu_transaccion ver = new Menu_transaccion(numeroTarjeta, atmId);
+        Menu_secundario ver = new Menu_secundario(numeroTarjeta, atmId);
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton_ATRAS1ActionPerformed
 
     private void jButton_Solicitar_PrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Solicitar_PrestamoActionPerformed
-        Solicitar_Prestamo ver = new Solicitar_Prestamo(numeroTarjeta,atmId);
+        Solicitar_Prestamo ver = new Solicitar_Prestamo(numeroTarjeta,atmId, tarjetaId);
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton_Solicitar_PrestamoActionPerformed
 
     private void jButton_Pagar_PrestamoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Pagar_PrestamoActionPerformed
-        Menu_Pagar_Prestamo ver = new Menu_Pagar_Prestamo(tarjetaId);
+        Menu_Pagar_Prestamo ver = new Menu_Pagar_Prestamo(numeroTarjeta, atmId, tarjetaId);
         ver.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton_Pagar_PrestamoActionPerformed

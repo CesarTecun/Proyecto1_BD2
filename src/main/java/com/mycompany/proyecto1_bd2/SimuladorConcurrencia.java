@@ -7,10 +7,10 @@ public class SimuladorConcurrencia {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        int tarjetaId = 1;          // Tarjeta origen
-        int cuentaDestino = 2;      // Cuenta destino (para transferencia)
-        int atm1 = 1;             // Primer cajero
-        int atm2 = 2;             // Segundo cajero (opcional)
+        int tarjetaId = 1002;          // Tarjeta origen
+        int cuentaDestino = 103;      // Cuenta destino (para transferencia)
+        int atm1 = 8;             // Primer cajero
+        int atm2 = 7;             // Segundo cajero (opcional)
         double montoExtraccion = 100;
         double montoTransferencia = 100;
 
@@ -25,20 +25,29 @@ public class SimuladorConcurrencia {
 
             switch (opcion) {
                 case "1":
+                    if (Validacion.estaCajeroActivo(atm1)){
                     new Thread(() -> {
                         String resultado = Validacion.realizarExtraccion(tarjetaId, montoExtraccion, atm1);
                         System.out.println("🧾 Extracción: " + resultado);
                     }).start();
+                    } else {
+                        System.out.println("EL CAJERO" + atm1 + "Esta inactivo chavo");
+                    }
                     break;
 
                 case "2":
+                     if (Validacion.estaCajeroActivo(atm1)){
                     new Thread(() -> {
                         boolean exito = Validacion.realizarTransferencia(tarjetaId, cuentaDestino, montoTransferencia, atm2);
                         System.out.println("💸 Transferencia: " + (exito ? "Exitosa" : "Fallida"));
                     }).start();
+                        } else {
+                        System.out.println("EL CAJERO" + atm1 + "Esta inactivo chavo");
+                    }
                     break;
 
                 case "3":
+                     if (Validacion.estaCajeroActivo(atm1)){
                     Thread extraccion = new Thread(() -> {
                         String resultado = Validacion.realizarExtraccion(tarjetaId, montoExtraccion, atm1);
                         System.out.println("🧾 Extracción simultánea: " + resultado);
@@ -51,6 +60,9 @@ public class SimuladorConcurrencia {
 
                     extraccion.start();
                     transferencia.start();
+                        } else {
+                        System.out.println("EL CAJERO" + atm1 + "Esta inactivo chavo");
+                    }
                     break;
 
                 case "4":

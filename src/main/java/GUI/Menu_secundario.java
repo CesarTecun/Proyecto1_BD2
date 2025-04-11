@@ -2,8 +2,10 @@ package GUI;
 import com.mycompany.proyecto1_bd2.DatosUsuario;
 import com.mycompany.proyecto1_bd2.UsuarioInfo;
 public class Menu_secundario extends javax.swing.JFrame {
+    
     private String numeroTarjeta;
     private int atmId;
+    
     public Menu_secundario(String numeroTarjeta, int atmId) {
         initComponents();
         setLocationRelativeTo(null);

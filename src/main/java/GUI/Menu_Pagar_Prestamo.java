@@ -10,14 +10,17 @@ public class Menu_Pagar_Prestamo extends javax.swing.JFrame {
 
    private int tarjetaId;
    private DefaultTableModel modeloTabla;
+   private int atmId;
+    private String numeroTarjeta;
 
-    public Menu_Pagar_Prestamo(int tarjetaId) {
+    public Menu_Pagar_Prestamo(String numeroTarjeta, int atmId, int tarjetaId) {
+    this.numeroTarjeta = numeroTarjeta;
+    this.atmId = atmId;
     this.tarjetaId = tarjetaId;
     initComponents();
     setLocationRelativeTo(null);
     configurarTabla();
     cargarPagosPendientes();
-
     jButton_Pagar_Prestamo.addActionListener(evt -> pagarSeleccionados());
     }
 
@@ -30,6 +33,7 @@ public class Menu_Pagar_Prestamo extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_Prestamo_pagados = new javax.swing.JTable();
         jButton_Pagar_Prestamo = new javax.swing.JButton();
+        jButton_ATRAS1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,24 +51,38 @@ public class Menu_Pagar_Prestamo extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable_Prestamo_pagados);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 930, 420));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 930, 420));
 
         jButton_Pagar_Prestamo.setText("PAGAR PRESTAMO");
-        jPanel1.add(jButton_Pagar_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 450, 170, 50));
+        jPanel1.add(jButton_Pagar_Prestamo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 480, 170, 50));
+
+        jButton_ATRAS1.setText("ATRAS");
+        jButton_ATRAS1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ATRAS1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton_ATRAS1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 605, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 988, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_ATRAS1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ATRAS1ActionPerformed
+        Menu_Pago ver = new Menu_Pago(numeroTarjeta, atmId);
+        ver.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton_ATRAS1ActionPerformed
 
     private void configurarTabla() {
     modeloTabla = new DefaultTableModel(
@@ -127,6 +145,7 @@ private void cargarPagosPendientes() {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_ATRAS1;
     private javax.swing.JButton jButton_Pagar_Prestamo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

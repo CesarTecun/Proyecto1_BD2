@@ -125,5 +125,24 @@ public class Validacion {
 
     return resultado;
 }
+    
+    public static boolean estaCajeroActivo(int atmId) {
+    try (Connection conn = Conexion.getConnection()) {
+        String sql = "SELECT estado FROM banco.ATM WHERE atm_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, atmId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return rs.getString("estado").equalsIgnoreCase("ACTIVO");
+        }
+    } catch (SQLException e) {
+        System.out.println("⚠️ Error al verificar estado del cajero:");
+        e.printStackTrace();
+    }
+    return false; // por defecto, inactivo si hay error
+}
+
+    
 
 }

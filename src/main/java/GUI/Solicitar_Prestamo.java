@@ -6,12 +6,15 @@ import com.mycompany.proyecto1_bd2.GestorPrestamos;
 public class Solicitar_Prestamo extends javax.swing.JFrame {
     private String numeroTarjeta;
     private int atmId;
+    private int tarjetaId;
     private javax.swing.JComboBox<String> jComboBox_Tipo_Tasa;
 
-    public Solicitar_Prestamo(String numeroTarjeta, int atmId) {
+    public Solicitar_Prestamo(String numeroTarjeta, int atmId, int tarjetaId) {
         initComponents();
         setLocationRelativeTo(null);
-        
+        this.numeroTarjeta = numeroTarjeta;
+        this.atmId = atmId;
+        this.tarjetaId = tarjetaId;
         jComboBox_Tipo_Tasa = new javax.swing.JComboBox<>();
         jComboBox_Tipo_Tasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
             "Hipotecario", "Consumo", "Educativo", "Empresarial"
@@ -126,15 +129,14 @@ public class Solicitar_Prestamo extends javax.swing.JFrame {
 
 private void solicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {
     try {
-       String tipoPrestamo = jComboBox_Tipo_Tasa.getSelectedItem().toString();  
+        String tipoPrestamo = jComboBox_Tipo_Tasa.getSelectedItem().toString();  
         double montoSolicitado = Double.parseDouble(Jtext_Solicitado.getText());
         int plazo = Integer.parseInt(Jtext_Meses.getText());
         String destino = Jtext_Destino_Prestamo.getText();
         String garantia = Jtext_Ofrecida.getText();
 
-        // Aquí puedes ajustar el cliente_id y cuenta_desembolso reales
-        int clienteId = 1;
-        int cuentaDesembolso = 99;
+        int clienteId = GestorPrestamos.obtenerClienteIdDesdeTarjeta(tarjetaId); // ✅ cliente correcto
+        int cuentaDesembolso = 99; // si luego quieres hacerlo dinámico, lo ajustamos
 
         String resultado = GestorPrestamos.registrarPrestamo(
             clienteId,
@@ -153,11 +155,11 @@ private void solicitarPrestamoActionPerformed(java.awt.event.ActionEvent evt) {
             javax.swing.JOptionPane.showMessageDialog(this, "❌ " + resultado);
         }
 
-
     } catch (NumberFormatException e) {
         javax.swing.JOptionPane.showMessageDialog(this, "❗ Error: Verifique que todos los campos numéricos estén bien ingresados.");
     }
 }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Jbutton_Prestamo;
